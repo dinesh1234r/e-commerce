@@ -23,7 +23,7 @@ function Register(){
         username: username,
         password: password
       };
-      axios.post("http://localhost:9000/user/register",postData)
+      axios.post("https://e-commerce-backend-l0au.onrender.com/user/register",postData)
       .then(response=>{
         alert(response.data)
       })

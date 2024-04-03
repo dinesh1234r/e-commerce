@@ -8,7 +8,7 @@ function useGetproducts() {
     const navigate=useNavigate();
     
     const fetchProduct = async() => {
-        axios.get('http://localhost:9000/products/', {
+        axios.get('https://e-commerce-backend-l0au.onrender.com/products/', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('userinfo')}`

@@ -71,7 +71,7 @@ export function ShopContextProvider(props) {
         customerId: localStorage.getItem("userID"),
         cartItems: cartItems,
       };
-      const response=await axios.post("http://localhost:9000/products/checkout", body,{
+      const response=await axios.post("https://e-commerce-backend-l0au.onrender.com/products/checkout", body,{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('userinfo')}`
@@ -97,7 +97,7 @@ export function ShopContextProvider(props) {
   const balancemoney = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:9000/user/availablemoney/${localStorage.getItem(
+        `https://e-commerce-backend-l0au.onrender.com/user/availablemoney/${localStorage.getItem(
           "userID"
         )}`
       );
@@ -118,7 +118,7 @@ export function ShopContextProvider(props) {
   const prevpurchaseditem=async()=>{
       try{
         const response=await axios.get(
-          `http://localhost:9000/products/purchaseditems/${localStorage.getItem(
+          `https://e-commerce-backend-l0au.onrender.com/products/purchaseditems/${localStorage.getItem(
             "userID"
           )}`
         );
