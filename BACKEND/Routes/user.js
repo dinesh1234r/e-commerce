@@ -12,10 +12,10 @@ router.post('/register',[check('password').isLength({min:6})], async (req, res) 
     const error=validationResult(req);
     if(!error.isEmpty())
     {
-        res.status(404).json({
-            error:error.array()
-        })
+        res.json("Password must contain atleast 6 character")
     }
+    else
+    {
     const checking=await userSchema.find({username:req.body.username})
 
     if(checking.length==0)
@@ -33,6 +33,7 @@ router.post('/register',[check('password').isLength({min:6})], async (req, res) 
     }
     else{
         res.json("User already existes");
+    }
     }
 }catch(error) {
     console.error('Login error:', error);
