@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import '../auth/style.css'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../context/shopcontext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -52,7 +52,7 @@ return (
           
       </form>
   </div>
-  <ToastContainer/>
+  // <ToastContainer/>
   </div>
 )
 }
