@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import '../auth/style.css'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../context/shopcontext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,19 +31,16 @@ function Login(){
         {
           localStorage.setItem('userID',response.data.customerId)
           localStorage.setItem('userinfo',response.data.jwt)
+          alert(response.data.message)
           setIsauth(true)
-          toast.success(response.data.message,{onClose:()=>{
-            navigate('/Home')
-          },autoClose:1500})
-          
-          
+          navigate('/Home')
         }
         else{
-          toast.error(response.data)
+          alert(response.data)
         }
       })
       .catch(error=>{
-         toast.error('Error in login page')
+         alert('Error in login page')
       })
       setUsername("")
       setPassword("")
@@ -75,7 +72,7 @@ return (
       
       
   </div>
-  <ToastContainer/>
+  {/* <ToastContainer/> */}
   </div>
 )
 }
