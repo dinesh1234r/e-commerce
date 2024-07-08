@@ -21,15 +21,14 @@ function Register(){
       };
       axios.post("https://e-commerce-backend-l0au.onrender.com/user/register",postData)
       .then(response=>{
-        toast.success(response.data,{onClose:()=>{
-            navigate('/')
-          },autoClose:1500})
+        alert(response.data)
       })
       .catch(error=>{
         console.log('Error Occured in Register Form')
       })
       setUsername("")
       setPassword("")
+      navigate('/')
   }
 return (
   <div className='body'>
