@@ -2,8 +2,12 @@ import React, { useContext } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import '../auth/style.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../context/shopcontext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 
 function Login(){
@@ -27,40 +31,51 @@ function Login(){
         {
           localStorage.setItem('userID',response.data.customerId)
           localStorage.setItem('userinfo',response.data.jwt)
-          alert(response.data.message)
           setIsauth(true)
-          navigate('/Home')
+          toast.success(response.data.message,{onClose:()=>{
+            navigate('/Home')
+          },autoClose:1500})
+          
+          
         }
         else{
-          alert(response.data)
+          toast.error(response.data)
         }
       })
       .catch(error=>{
-         alert('Error in login page')
+         toast.error('Error in login page')
       })
       setUsername("")
       setPassword("")
   }
 return (
-  <div className='auth'>
-  <div className='auth-container'>
-      <h1 >Login</h1>
-      <form>
-          <div className='form-group'>
-          <label htmlFor='username' >UserName:</label>
+  <div className='body'>
+  <div className='box'>
+    <div className='header'>
+      <div className='text'>Login</div>
+      <div className='underline'></div>
+    </div>
+      <form className='inputs'>
+          <div className='input'>
+          <label htmlFor='username' ><FontAwesomeIcon className='icon' icon={faUser} /></label>
           <input type='text' id='username' value={username} onChange={(event)=>setUsername(event.target.value)} />
           </div>
-          <div>
-          <label htmlFor='password'>Password:</label>
+          <div className='input'>
+          <label htmlFor='password'><FontAwesomeIcon className='icon' icon={faLock} /></label>
           <input type='password' value={password} onChange={(event)=>setPassword(event.target.value)} id='password'/>
           </div>
-          <button type='submit' onClick={handlesubmit}>Submit</button>
+          <div className='submit'>
+          <button className='submit' type='submit' onClick={handlesubmit}>Submit</button>
+          </div>
       </form>
-      <p>If you don't have a account</p>
-      <button onClick={()=>navigate('/register')}>Register</button>
+      <div className='register'>
+      <div>If you don't have a account</div>
+      <div className='register1' onClick={()=>navigate('/register')}>Register</div>
+      </div>
+      
       
   </div>
-  {/* <ToastContainer/> */}
+  <ToastContainer/>
   </div>
 )
 }
