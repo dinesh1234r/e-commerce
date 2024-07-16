@@ -2,12 +2,8 @@ import React, { useContext } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import '../auth/style.css'
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../context/shopcontext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 
 function Login(){
@@ -25,7 +21,7 @@ function Login(){
         username:username,
         password:password
       }
-      axios.post('https://e-commerce-backend-l0au.onrender.com/user/login',postData)
+      axios.post('http://localhost:9000/user/login',postData)
       .then(response=>{
         if(response.data.message=='Login Successful')
         {
@@ -46,30 +42,22 @@ function Login(){
       setPassword("")
   }
 return (
-  <div className='body'>
-  <div className='box'>
-    <div className='header'>
-      <div className='text'>Login</div>
-      <div className='underline'></div>
-    </div>
-      <form className='inputs'>
-          <div className='input'>
-          <label htmlFor='username' ><FontAwesomeIcon className='icon' icon={faUser} /></label>
+  <div className='auth'>
+  <div className='auth-container'>
+      <h1 >Login</h1>
+      <form>
+          <div className='form-group'>
+          <label htmlFor='username' >UserName:</label>
           <input type='text' id='username' value={username} onChange={(event)=>setUsername(event.target.value)} />
           </div>
-          <div className='input'>
-          <label htmlFor='password'><FontAwesomeIcon className='icon' icon={faLock} /></label>
+          <div>
+          <label htmlFor='password'>Password:</label>
           <input type='password' value={password} onChange={(event)=>setPassword(event.target.value)} id='password'/>
           </div>
-          <div className='submit'>
-          <button className='submit' type='submit' onClick={handlesubmit}>Submit</button>
-          </div>
+          <button type='submit' onClick={handlesubmit}>Submit</button>
       </form>
-      <div className='register'>
-      <div>If you don't have a account</div>
-      <div className='register1' onClick={()=>navigate('/register')}>Register</div>
-      </div>
-      
+      <p>If you don't have a account</p>
+      <button onClick={()=>navigate('/register')}>Register</button>
       
   </div>
   {/* <ToastContainer/> */}
