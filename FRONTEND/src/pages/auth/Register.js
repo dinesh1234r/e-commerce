@@ -5,13 +5,6 @@ import '../auth/style.css'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../context/shopcontext'
 
-// function Auth() {
-//     return (
-//       <div className='auth'>
-//         <Register/>
-//       </div>
-//     )
-// }
 
 function Register(){
   const navigate=useNavigate()
