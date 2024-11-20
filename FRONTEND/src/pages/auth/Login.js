@@ -4,7 +4,10 @@ import axios from 'axios'
 import '../auth/style.css'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../context/shopcontext'
-
+import {Input,Box, Heading,Text, Button, Center, HStack, VStack, IconButton, Icon} from '@chakra-ui/react'
+import { FaUser, FaLock } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login(){
   const {setIsauth}=useContext(ShopContext)
@@ -15,53 +18,59 @@ function Login(){
   {
     navigate('/Home')
   }
+  const closing=(response)=>{
+    navigate('/Home')
+    localStorage.setItem('userID',response.data.customerId)
+          localStorage.setItem('userinfo',response.data.jwt)
+  }
   const handlesubmit=async(event)=>{
       event.preventDefault();
       const postData={
         username:username,
         password:password
       }
-      axios.post('http://localhost:9000/user/login',postData)
+      axios.post('https://e-commerce-backend-l0au.onrender.com/user/login',postData)
       .then(response=>{
         if(response.data.message=='Login Successful')
         {
-          localStorage.setItem('userID',response.data.customerId)
-          localStorage.setItem('userinfo',response.data.jwt)
-          alert(response.data.message)
+          
+          toast.success(response.data.message,{
+            onClose:closing(response)
+          })
           setIsauth(true)
-          navigate('/Home')
+          
         }
         else{
-          alert(response.data)
+          toast.error(response.data)
         }
       })
       .catch(error=>{
-         alert('Error in login page')
+         toast.error('Error !!!')
       })
       setUsername("")
       setPassword("")
   }
 return (
-  <div className='auth'>
-  <div className='auth-container'>
-      <h1 >Login</h1>
-      <form>
-          <div className='form-group'>
-          <label htmlFor='username' >UserName:</label>
-          <input type='text' id='username' value={username} onChange={(event)=>setUsername(event.target.value)} />
-          </div>
-          <div>
-          <label htmlFor='password'>Password:</label>
-          <input type='password' value={password} onChange={(event)=>setPassword(event.target.value)} id='password'/>
-          </div>
-          <button type='submit' onClick={handlesubmit}>Submit</button>
-      </form>
+  <Box  maxH={'50vh'} w={'100%'} mt={'10%'} >
+  <Box boxShadow={'lg'} p={10} w={'30%'} mx={'auto'}>
+      <Heading mb={10}>Login</Heading>
+      <VStack gap={4}>
+          <HStack w={'100%'}>
+          <FaUser style={{marginRight:'10px'}}/>
+          <Input type='text'  value={username} onChange={(event)=>setUsername(event.target.value)} />
+          </HStack>
+          <HStack w={'100%'}>
+          <FaLock style={{marginRight:'10px'}}/>
+          <Input type='password' value={password} onChange={(event)=>setPassword(event.target.value)} />
+          </HStack>
+        </VStack >
+          <Button mt={4} mb={2} type='submit' colorScheme='blue' onClick={handlesubmit}>Submit</Button>
       <p>If you don't have a account</p>
-      <button onClick={()=>navigate('/register')}>Register</button>
+      <Button mt={2} onClick={()=>navigate('/register')} colorScheme='red'>Register</Button>
       
-  </div>
-  {/* <ToastContainer/> */}
-  </div>
+  </Box>
+  <ToastContainer/>
+  </Box>
 )
 }
 export default Login
